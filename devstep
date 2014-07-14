@@ -2,7 +2,8 @@
 
 set -eu
 
-VERSION='v0.0.1'
+#VERSION='v0.0.1'
+VERSION='v0.1'
 
 if [ "${1:-}" = '--version' ] || [ "${1:-}" = '-v' ]; then
   echo "${VERSION}"
@@ -36,7 +37,7 @@ DEVSTEP_WORKSPACE_NAME=$(basename ${DEVSTEP_WORKSPACE_PATH})
 DEVSTEP_WORKSPACE_REPO="devstep/${DEVSTEP_WORKSPACE_NAME}"
 
 ## Starting point for project images
-DEVSTEP_SOURCE_IMAGE="fgrehm/devstep:${VERSION}"
+DEVSTEP_SOURCE_IMAGE="rvalyi/devstep-sa:${VERSION}"
 
 ## Global options for `docker run`
 DEVSTEP_RUN_OPTS=

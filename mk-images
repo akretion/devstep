@@ -2,13 +2,13 @@
 
 set -e
 
-tag=$(./devstep -v)
+tag=v0.0.1
+#$(./devstep -v)
 
-echo "===> Building fgrehm/devstep:${tag}"
-docker build -t fgrehm/devstep:${tag} .
+owner='rvalyi'
 
-echo "===> Building fgrehm/devstep-sa:${tag}"
-(cd standalone && docker build -t fgrehm/devstep-sa:${tag} .)
+echo "===> Building ${owner}/odoocker-devstep:${tag}"
+docker build -t ${owner}/odoocker-devstep:${tag} .
 
-echo "===> Building fgrehm/devstep-ab:${tag}"
-(cd auto-build && docker build -t fgrehm/devstep-ab:${tag} .)
+echo "===> Building ${owner}/odoocker-devstep-pg:${tag}"
+(cd embedded_posgtresql && docker build -t ${owner}/odoocker-devstep-pg:${tag} .)

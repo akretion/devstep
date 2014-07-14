@@ -1,5 +1,18 @@
-FROM progrium/cedarish
-MAINTAINER Fabio Rehm "fgrehm@gmail.com"
+FROM rvalyi/odoocker-base
+MAINTAINER Raphaël Valyi "rvalyi@akretion.com"
+
+# TODO move that to a subimage
+RUN echo "deb http://apt.postgresql.org/pub/repos/apt/ trusty-pgdg main" > /etc/apt/sources.list.d/postgresql.list \
+    && apt-key adv --keyserver keyserver.ubuntu.com --recv-keys B97B0AFCAA1A47F044F244A07FCC7D46ACCC4CF8 \
+    && apt-get update \
+    && apt-get install -y -q \
+        postgresql-9.3 \
+        postgresql-contrib-9.3 \
+    && apt-get autoclean \
+    && apt-get clean
+
+EXPOSE 5432
+
 
 #####################################################################
 # Create a default user to avoid using the container as root, we set
@@ -44,13 +57,10 @@ RUN DEBIAN_FRONTEND=noninteractive && \
 
 RUN DEBIAN_FRONTEND=noninteractive && \
     apt-get update && \
-    apt-get install -y gawk libreadline6-dev libyaml-dev libgdbm-dev libncurses5-dev libffi-dev libicu-dev && \
-    apt-get install -y postgresql-client mysql-client && \
-    apt-get install -y software-properties-common && \
     echo "[client]\nprotocol=tcp\nuser=root" >> /.devstep/.my.cnf && \
     echo "export PGHOST=localhost" >> /.devstep/.profile.d/postgresql.sh && \
     echo "export PGUSER=postgres" >> /.devstep/.profile.d/postgresql.sh && \
-    apt-get install -y --force-yes vim tmux htop bsdtar && \
+    apt-get install -y --force-yes vim tmux htop && \
     apt-get clean && \
     mkdir -p /.devstep/bin && \
     curl -L -s http://stedolan.github.io/jq/download/linux64/jq > /.devstep/bin/jq
