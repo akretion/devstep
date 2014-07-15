@@ -211,7 +211,6 @@ if [ -f requirements.txt ] && (grep -Fiq "hg+" requirements.txt) then
   # bpwatch stop mercurial_install
 fi
 
-#/.devstep/python/bin/pip install bzr
 if [ ! -f bootstrap.py ]; then
   wget https://raw.github.com/buildout/buildout/master/bootstrap/bootstrap.py
   python bootstrap.py
